@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Navigate, Route, Routes } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Layout from "./components/Layout";
+import Landing from "./components/Landing";
+import MainLayout from "./components/MainLayout";
 
+import { UsersList } from "./pages/Users/UsersList";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
+import { TicketsList } from "./pages/Tickets/TicketsList";
+import { Login } from "./pages/Login/Login";
+import PersistLogin from "./components/PersistLogin";
+import RBAC from "./components/RBAC";
+
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Routes>
+      {/* path = "/" -> root URL */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Landing />} />
+        <Route path="login" element={<Login />} />
 
-export default App
+        <Route element={<PersistLogin />}>
+          <Route path="/app" element={<MainLayout />}>
+            <Route index element={<Navigate to="/app/dashboard" replace />} />
+            <Route path="dashboard">
+              <Route index element={<Dashboard />} />
+            </Route>
+
+            <Route element={<RBAC allowedRoles={["Manager", "Admin"]} />}>
+              <Route path="users">
+                <Route index element={<UsersList /> } />
+              </Route>
+            </Route>
+
+            <Route path="tickets">
+              <Route index element={<TicketsList />} />
+            </Route>
+          </Route>
+        </Route>
+      </Route>
+    </Routes>
+  );
+}
