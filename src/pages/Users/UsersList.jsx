@@ -17,7 +17,12 @@ export const UsersList = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  // console.log(JSON.stringify(UsersList));
   let list;
+
+  if (isError) {
+    console.log('Error:', error);
+  }
 
   if (isLoading) {
     list = (

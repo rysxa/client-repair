@@ -13,7 +13,11 @@ const PersistLogin = () => {
   const accessToken = useSelector(selectCurrentToken);
   const effectRan = useRef(false);
   const [trueSuccess, setTrueSuccess] = useState(false);
-
+  // Simpan token setelah login berhasil
+  localStorage.setItem('accessToken', accessToken);
+  const token = localStorage.getItem('accessToken');
+  console.log(token);
+  
   const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =
     useRefreshMutation();
 
@@ -49,7 +53,7 @@ const PersistLogin = () => {
     app = (
       <p>
         {`${error?.data?.message}`}
-        <Link to="/login">Harap login kembali</Link>
+        <Link to="/login">Please login again!</Link>
       </p>
     );
 
