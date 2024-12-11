@@ -1,4 +1,5 @@
 import { Filter, Search } from "lucide-react";
+import { CreateTicketDrawer } from "./CreateTicketDrawer";
 
 export const TicketsList = () => {
   let list;
@@ -11,6 +12,7 @@ export const TicketsList = () => {
           <p>Manage employee access and data</p>
         </div>
         {/* Sebuah Drawer create Ticket */}
+        <CreateTicketDrawer />
       </div>
 
       <div className="bg-white rounded-lg shadow">

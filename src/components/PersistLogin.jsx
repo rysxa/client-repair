@@ -14,8 +14,9 @@ const PersistLogin = () => {
   const effectRan = useRef(false);
   const [trueSuccess, setTrueSuccess] = useState(false);
   // Simpan token setelah login berhasil
-  localStorage.setItem('accessToken', accessToken);
-  const token = localStorage.getItem('accessToken');
+  // localStorage.setItem('accessToken', accessToken);
+  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem("persist"); 
   console.log(token);
   
   const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =

@@ -4,7 +4,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 const RBAC = ({ allowedRoles }) => {
   const location = useLocation();
   const { roles } = useAuth();
-  console.log(roles);
+  // console.log(roles);
 
   const app = roles.some((role) => allowedRoles.includes(role)) ? (
     <Outlet />
